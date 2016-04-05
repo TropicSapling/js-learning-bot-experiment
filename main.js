@@ -19,6 +19,10 @@ for(pos = 0; pos < data.length; pos++) {
 		for(i = pos; i < data.length; i++) {
 			if(data[i] == item) {
 				items2.push(data[i+1]);
+				if(i != pos) {
+					data.splice(i, 1);
+					i--;
+				}
 			}
 		}
 		items.push([item, items2]);
