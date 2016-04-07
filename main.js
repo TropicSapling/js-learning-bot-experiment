@@ -2,9 +2,19 @@ var data = prompt("Enter something I can read to learn :)", "Lorem ipsum dolor")
 var items = [];
 var msg = [];
 var options = [];
+var exclusions = [];
 
 function maxOf(arr) {
 	return Math.max.apply(null, arr);
+}
+
+Array.prototype.contains = function(obj) {
+    for(i = this.length-1; i >= 0; i--) {
+        if (this[i] == obj) {
+            return true;
+        }
+    }
+    return false;
 }
 
 for(pos = 0; pos < data.length; pos++) {
@@ -14,15 +24,12 @@ for(pos = 0; pos < data.length; pos++) {
 		options.push(item);
 	}
 	
-	if(pos < data.length-1) {
+	if(pos < data.length-1 && !(exclusions.contains(item))) {
 		var items2 = [];
+		exclusions.push(item);
 		for(i = pos; i < data.length; i++) {
 			if(data[i] == item) {
 				items2.push(data[i+1]);
-				if(i != pos) {
-					data.splice(i, 1);
-					i--;
-				}
 			}
 		}
 		items.push([item, items2]);
@@ -60,6 +67,6 @@ do {
 	}
 	
 	pos++;
-} while(pos < msg.length);
+} while(pos < items.length);
 
 alert(msg.join(" "));
